@@ -1,5 +1,7 @@
 package com.example.copsboot.user;
 
+import com.example.orm.jpa.AbstractEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -7,10 +9,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "copsboot_user")
-public class User {
+public class User extends AbstractEntity<UserId> {
 
-    @Id
-    private UUID id;
     private String email;
     private String password;
 
@@ -22,15 +22,11 @@ public class User {
     protected User() {
     }
 
-    public User(UUID id, String email, String password, Set<UserRole> roles) {
-        this.id = id;
+    public User(UserId id, String email, String password, Set<UserRole> roles) {
+        super(id);
         this.email = email;
         this.password = password;
         this.roles = roles;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getEmail() {
