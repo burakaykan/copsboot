@@ -19,7 +19,8 @@ public class User {
     @NotNull
     private Set<UserRole> roles;
 
-    protected User() { }
+    protected User() {
+    }
 
     public User(UUID id, String email, String password, Set<UserRole> roles) {
         this.id = id;
