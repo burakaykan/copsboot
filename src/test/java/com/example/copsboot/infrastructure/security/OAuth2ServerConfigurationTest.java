@@ -20,16 +20,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest //<1>
+@AutoConfigureMockMvc //<2>
 @ActiveProfiles(SpringProfiles.TEST)
 public class OAuth2ServerConfigurationTest {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mvc; //<3>
 
     @Autowired
-    private UserService userService;
+    private UserService userService; //<4>
 
     @Test
     public void testGetAccessTokenAsOfficer() throws Exception {
@@ -60,4 +60,5 @@ public class OAuth2ServerConfigurationTest {
            .andExpect(jsonPath("scope").value("mobile_app"))
         ;
     }
+
 }

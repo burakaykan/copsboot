@@ -14,12 +14,12 @@ public class Users {
     public static final String CAPTAIN_PASSWORD = "captain";
 
     private static User OFFICER = User.createOfficer(newRandomId(),
-            OFFICER_EMAIL,
-            PASSWORD_ENCODER.encode(OFFICER_PASSWORD));
+                                                     OFFICER_EMAIL,
+                                                     PASSWORD_ENCODER.encode(OFFICER_PASSWORD));
 
     private static User CAPTAIN = User.createCaptain(newRandomId(),
-            CAPTAIN_EMAIL,
-            PASSWORD_ENCODER.encode(CAPTAIN_PASSWORD));
+                                                     CAPTAIN_EMAIL,
+                                                   PASSWORD_ENCODER.encode(CAPTAIN_PASSWORD));
 
 
     public static UserId newRandomId() {
@@ -33,9 +33,9 @@ public class Users {
     public static User newRandomOfficer(UserId userId) {
         String uniqueId = userId.asString().substring(0, 5);
         return User.createOfficer(userId,
-                "user-" + uniqueId +
-                        "@example.com",
-                PASSWORD_ENCODER.encode("user"));
+                                  "user-" + uniqueId +
+                                          "@example.com",
+                                  PASSWORD_ENCODER.encode("user"));
     }
 
     public static User officer() {

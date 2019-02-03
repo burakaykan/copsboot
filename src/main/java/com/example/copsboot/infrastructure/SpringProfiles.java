@@ -7,5 +7,6 @@ public final class SpringProfiles {
     public static final String STAGING = "staging";
     public static final String PROD = "prod";
 
-    private SpringProfiles(){ }
+    private SpringProfiles() {
+    }
 }

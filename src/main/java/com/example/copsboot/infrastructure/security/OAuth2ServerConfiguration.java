@@ -42,7 +42,8 @@ public class OAuth2ServerConfiguration {
             http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() //<2>
                 .and()
-                .antMatcher("/api/**").authorizeRequests()
+                .antMatcher("/api/**")
+                .authorizeRequests()
                 .anyRequest().authenticated(); //<3>
         }
     }
@@ -101,7 +102,7 @@ public class OAuth2ServerConfiguration {
         public AuthenticationManager authenticationManagerBean() throws Exception {
             return super.authenticationManagerBean();
         }
-    }
-    //end::web-security
 
+    }
+    //end::web-security[]
 }

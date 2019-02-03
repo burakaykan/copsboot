@@ -7,9 +7,6 @@ import java.io.Serializable;
  *
  * @param <T> the underlying type of the entity id
  */
-
-import java.io.Serializable;
-
 public interface EntityId<T> extends Serializable {
 
     T getId();

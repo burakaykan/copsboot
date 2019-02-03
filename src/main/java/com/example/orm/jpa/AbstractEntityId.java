@@ -11,7 +11,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @MappedSuperclass
 public abstract class AbstractEntityId<T extends Serializable> implements Serializable, EntityId<T> {
-
     private T id;
 
     @ArtifactForFramework
@@ -42,6 +41,7 @@ public abstract class AbstractEntityId<T extends Serializable> implements Serial
             AbstractEntityId other = (AbstractEntityId) o;
             result = Objects.equals(id, other.id);
         }
+
         return result;
     }
 

@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "copsboot_user")
@@ -21,6 +21,7 @@ public class User extends AbstractEntity<UserId> {
     private Set<UserRole> roles;
 
     protected User() {
+
     }
 
     public User(UserId id, String email, String password, Set<UserRole> roles) {

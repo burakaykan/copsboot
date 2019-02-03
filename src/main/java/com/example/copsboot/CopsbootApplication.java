@@ -17,23 +17,24 @@ import java.util.UUID;
 @SpringBootApplication
 public class CopsbootApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CopsbootApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CopsbootApplication.class, args);
+    }
 
-	@Bean
-	public UniqueIdGenerator<UUID> uniqueIdGenerator() {
-		return new InMemoryUniqueIdGenerator();
-	}
+    @Bean
+    public UniqueIdGenerator<UUID> uniqueIdGenerator() {
+        return new InMemoryUniqueIdGenerator();
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    //tag::supporting-beans[]
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
-	}
+    @Bean
+    public TokenStore tokenStore() {
+        return new InMemoryTokenStore();
+    }
+    //end::supporting-beans[]
 }
-

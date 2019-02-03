@@ -1,6 +1,5 @@
 package com.example.copsboot.user;
 
-
 import com.example.orm.jpa.InMemoryUniqueIdGenerator;
 import com.example.orm.jpa.UniqueIdGenerator;
 import org.junit.Test;
@@ -18,33 +17,29 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UserRepositoryTest {
 
-@TestConfiguration
-static class TestConfig {
-    @Bean
-    public UniqueIdGenerator<UUID> generator() {
-        return new InMemoryUniqueIdGenerator();
-    }
-}
-
     @Autowired
     private UserRepository repository;
 
+    //tag::testStoreUser[]
     @Test
     public void testStoreUser() {
         HashSet<UserRole> roles = new HashSet<>();
         roles.add(UserRole.OFFICER);
-        User user = repository.save(new User(repository.nextId(), "burakaykan2@gmail.com", "mypass", roles));
+        User user = repository.save(new User(repository.nextId(), //<1>
+                                             "burakaykan2@gmail.com",
+                                             "my-secret-pwd",
+                                             roles));
+        assertThat(user).isNotNull(); //<6>
 
-        assertThat(user).isNotNull();
-        assertThat(repository.count()).isEqualTo(1L);
+        assertThat(repository.count()).isEqualTo(1L); //<7>
     }
+    //end::testStoreUser[]
 
+    //tag::find-by-email-tests[]
     @Test
     public void testFindByEmail() {
         User user = Users.newRandomOfficer();
@@ -52,7 +47,7 @@ static class TestConfig {
         Optional<User> optional = repository.findByEmailIgnoreCase(user.getEmail());
 
         assertThat(optional).isNotEmpty()
-                .contains(user);
+                            .contains(user);
     }
 
     @Test
@@ -60,10 +55,10 @@ static class TestConfig {
         User user = Users.newRandomOfficer();
         repository.save(user);
         Optional<User> optional = repository.findByEmailIgnoreCase(user.getEmail()
-                .toUpperCase(Locale.US));
+                                                                       .toUpperCase(Locale.US));
 
         assertThat(optional).isNotEmpty()
-                .contains(user);
+                            .contains(user);
     }
 
     @Test
@@ -74,4 +69,15 @@ static class TestConfig {
 
         assertThat(optional).isEmpty();
     }
+    //end::find-by-email-tests[]
+
+    //tag::testconfig[]
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        public UniqueIdGenerator<UUID> generator() {
+            return new InMemoryUniqueIdGenerator();
+        }
+    }
+    //end::testconfig[]
 }

@@ -28,5 +28,4 @@ public class ApplicationUserDetailsService implements UserDetailsService {
                                                                                            username)));
         return new ApplicationUserDetails(user); //<5>
     }
-
 }

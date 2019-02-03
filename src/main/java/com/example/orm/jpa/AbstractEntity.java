@@ -1,7 +1,6 @@
 package com.example.orm.jpa;
 
 import com.example.util.ArtifactForFramework;
-import org.omg.CORBA.OBJECT_NOT_EXIST;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.MappedSuperclass;
@@ -16,14 +15,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @param <T> the type of {@link EntityId} that will be used for this entity
  */
-
-
 @MappedSuperclass
 public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
 
-
     @EmbeddedId
     private T id;
+
 
     @ArtifactForFramework
     protected AbstractEntity() {
@@ -32,6 +29,7 @@ public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
     public AbstractEntity(T id) {
         this.id = checkNotNull(id);
     }
+
 
     @Override
     public T getId() {
@@ -48,6 +46,7 @@ public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
             AbstractEntity other = (AbstractEntity) obj;
             result = Objects.equals(id, other.id);
         }
+
         return result;
     }
 
