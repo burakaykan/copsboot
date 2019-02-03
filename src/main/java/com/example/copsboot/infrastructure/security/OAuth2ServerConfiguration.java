@@ -27,7 +27,7 @@ public class OAuth2ServerConfiguration {
 
     //tag::resource-server[]
     @Configuration
-    @EnableResourceServer
+    @EnableResourceServer //<1>
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
@@ -39,12 +39,16 @@ public class OAuth2ServerConfiguration {
         @Override
         public void configure(HttpSecurity http) throws Exception {
 
-            http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll().and().antMatcher("/api/**").authorizeRequests().anyRequest().authenticated();
+            http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() //<2>
+                .and()
+                .antMatcher("/api/**").authorizeRequests()
+                .anyRequest().authenticated(); //<3>
         }
     }
-    //end::resource-server
+    //end::resource-server[]
 
-    //tag::authorization-server
+    //tag::authorization-server[]
     @Configuration
     @EnableAuthorizationServer
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
@@ -53,13 +57,16 @@ public class OAuth2ServerConfiguration {
         private AuthenticationManager authenticationManager;
 
         @Autowired
-        UserDetailsService userDetailsService;
+        private UserDetailsService userDetailsService;
 
         @Autowired
         private PasswordEncoder passwordEncoder;
 
         @Autowired
         private TokenStore tokenStore;
+
+        @Autowired
+        private SecurityConfiguration securityConfiguration; //<1>
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -68,12 +75,19 @@ public class OAuth2ServerConfiguration {
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients.inMemory().withClient("copsboot-mobile-client").authorizedGrantTypes("password", "refresh_token").scopes("mobile_app").resourceIds(RESOURCE_ID).secret(passwordEncoder.encode("ccUyb6vS4S8nxfbKPCrN"));
+            clients.inMemory()
+                   .withClient(securityConfiguration.getMobileAppClientId()) //<2>
+                   .authorizedGrantTypes("password", "refresh_token")
+                   .scopes("mobile_app")
+                   .resourceIds(RESOURCE_ID)
+                   .secret(passwordEncoder.encode(securityConfiguration.getMobileAppClientSecret())); //<3>
         }
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-            endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager).userDetailsService(userDetailsService);
+            endpoints.tokenStore(tokenStore)
+                     .authenticationManager(authenticationManager)
+                     .userDetailsService(userDetailsService);
         }
     }
     //end::authorization-server[]

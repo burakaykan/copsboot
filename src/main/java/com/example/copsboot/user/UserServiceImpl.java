@@ -10,13 +10,13 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder){
+    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User createOfficer(String email, String password){
+    public User createOfficer(String email, String password) {
         User user = User.createOfficer(repository.nextId(), email, passwordEncoder.encode(password));
         return repository.save(user);
     }

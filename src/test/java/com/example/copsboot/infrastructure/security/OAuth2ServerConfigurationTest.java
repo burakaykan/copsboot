@@ -32,11 +32,12 @@ public class OAuth2ServerConfigurationTest {
     private UserService userService;
 
     @Test
-    public void restGetAccessTokenAsOfficer() throws Exception{
-        userService.createOfficer(Users.OFFICER_EMAIL, Users.OFFICER_PASSWORD);
+    public void testGetAccessTokenAsOfficer() throws Exception {
 
-        String clientId = "copsboot-mobile-client";
-        String clientSecret = "ccUyb6vS4S8nxfbKPCrN";
+        userService.createOfficer(Users.OFFICER_EMAIL, Users.OFFICER_PASSWORD); //<5>
+
+        String clientId = "test-client-id";
+        String clientSecret = "test-client-secret";
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
@@ -45,13 +46,18 @@ public class OAuth2ServerConfigurationTest {
         params.add("username", Users.OFFICER_EMAIL);
         params.add("password", Users.OFFICER_PASSWORD);
 
-        mvc.perform(post("/oauth/token").params(params).with(httpBasic(clientId,clientSecret))
-                .accept("application/json;charset=UTF-8"))
-                .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andDo(print()).andExpect(jsonPath("access_token").isString())
-                .andExpect(jsonPath("token_type").value("bearer"))
-                .andExpect(jsonPath("refresh_token").isString())
-                .andExpect(jsonPath("expires_in").isNumber())
-                .andExpect(jsonPath("scope").value("mobile_app"));
+        mvc.perform(post("/oauth/token") //<6>
+                            .params(params) //<7>
+                            .with(httpBasic(clientId, clientSecret)) //<8>
+                            .accept("application/json;charset=UTF-8"))
+           .andExpect(status().isOk())
+           .andExpect(content().contentType("application/json;charset=UTF-8"))
+           .andDo(print()) //<9>
+           .andExpect(jsonPath("access_token").isString()) //<10>
+           .andExpect(jsonPath("token_type").value("bearer"))
+           .andExpect(jsonPath("refresh_token").isString())
+           .andExpect(jsonPath("expires_in").isNumber())
+           .andExpect(jsonPath("scope").value("mobile_app"))
+        ;
     }
 }

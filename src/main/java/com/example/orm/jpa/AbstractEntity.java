@@ -29,7 +29,7 @@ public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
     protected AbstractEntity() {
     }
 
-    protected AbstractEntity(T id) {
+    public AbstractEntity(T id) {
         this.id = checkNotNull(id);
     }
 
@@ -58,6 +58,8 @@ public abstract class AbstractEntity<T extends EntityId> implements Entity<T> {
 
     @Override
     public String toString() {
-        return toStringHelper(this).add("id", id).toString();
+        return toStringHelper(this)
+                .add("id", id)
+                .toString();
     }
 }

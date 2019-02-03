@@ -26,7 +26,7 @@ public class ApplicationUserDetails extends org.springframework.security.core.us
 
     private static Collection<SimpleGrantedAuthority> createAuthorities(Set<UserRole> roles) {
         return roles.stream()
-                .map(userRole -> new SimpleGrantedAuthority(ROLE_PREFIX + userRole.name()))
-                .collect(Collectors.toSet());
+                    .map(userRole -> new SimpleGrantedAuthority(ROLE_PREFIX + userRole.name()))
+                    .collect(Collectors.toSet());
     }
 }

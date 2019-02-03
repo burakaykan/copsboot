@@ -30,12 +30,12 @@ public class User extends AbstractEntity<UserId> {
         this.roles = roles;
     }
 
-    public static User createOfficer(UserId userId, String email, String encodedPassword){
-        return new User(userId,email,encodedPassword, Sets.newHashSet(UserRole.OFFICER));
+    public static User createOfficer(UserId userId, String email, String encodedPassword) {
+        return new User(userId, email, encodedPassword, Sets.newHashSet(UserRole.OFFICER));
     }
 
-    public static User createCaptain(UserId userId, String email, String encodedPassword){
-        return new User(userId,email,encodedPassword, Sets.newHashSet(UserRole.CAPTAIN));
+    public static User createCaptain(UserId userId, String email, String encodedPassword) {
+        return new User(userId, email, encodedPassword, Sets.newHashSet(UserRole.CAPTAIN));
     }
 
     public String getEmail() {

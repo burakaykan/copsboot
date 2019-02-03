@@ -74,5 +74,4 @@ static class TestConfig {
 
         assertThat(optional).isEmpty();
     }
-
 }
