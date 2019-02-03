@@ -19,7 +19,7 @@ public class Users {
 
     private static User CAPTAIN = User.createCaptain(newRandomId(),
                                                      CAPTAIN_EMAIL,
-                                                   PASSWORD_ENCODER.encode(CAPTAIN_PASSWORD));
+                                                     PASSWORD_ENCODER.encode(CAPTAIN_PASSWORD));
 
 
     public static UserId newRandomId() {
@@ -47,5 +47,9 @@ public class Users {
     }
 
     private Users() {
+    }
+
+    public static User newOfficer(String email, String password) {
+        return User.createOfficer(newRandomId(), email, PASSWORD_ENCODER.encode(password));
     }
 }
