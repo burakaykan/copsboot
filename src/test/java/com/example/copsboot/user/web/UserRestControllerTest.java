@@ -15,10 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static com.example.copsboot.infrastructure.security.SecurityHelperForMockMvc.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -94,4 +94,23 @@ public class UserRestControllerTest {
 
         verify(service).createOfficer(email, password);
     }
+
+    @Test
+    public void testCreateOfficerIfPasswordIsTooShort() throws Exception{
+        String email = "burak.aykan@example.com";
+        String password = "pwd";
+
+        CreateOfficerParameters parameters = new CreateOfficerParameters();
+        parameters.setEmail(email);
+        parameters.setPassword(password);
+
+        mvc.perform(post("/api/users")
+                            .contentType(MediaType.APPLICATION_JSON_UTF8)
+                            .content(objectMapper.writeValueAsString(parameters)))
+           .andExpect(status().isBadRequest()) //<2>
+           .andDo(print()); //<3>
+
+        verify(service, never()).createOfficer(email, password); //<4>
+    }
+
 }
