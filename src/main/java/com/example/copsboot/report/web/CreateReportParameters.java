@@ -17,4 +17,36 @@ public class CreateReportParameters {
 
     private boolean trafficIncident;
     private int numberOfInvolvedCars;
+
+    public ZonedDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(ZonedDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isTrafficIncident() {
+        return trafficIncident;
+    }
+
+    public void setTrafficIncident(boolean trafficIncident) {
+        this.trafficIncident = trafficIncident;
+    }
+
+    public int getNumberOfInvolvedCars() {
+        return numberOfInvolvedCars;
+    }
+
+    public void setNumberOfInvolvedCars(int numberOfInvolvedCars) {
+        this.numberOfInvolvedCars = numberOfInvolvedCars;
+    }
 }
