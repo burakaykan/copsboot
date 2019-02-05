@@ -3,13 +3,18 @@ package com.example.copsboot.report.web;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateReportParameters {
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private ZonedDateTime dateTime;
 
     @ValidReportDescription
@@ -17,6 +22,9 @@ public class CreateReportParameters {
 
     private boolean trafficIncident;
     private int numberOfInvolvedCars;
+
+    @NotNull
+    private MultipartFile image;
 
     public ZonedDateTime getDateTime() {
         return dateTime;
@@ -48,5 +56,13 @@ public class CreateReportParameters {
 
     public void setNumberOfInvolvedCars(int numberOfInvolvedCars) {
         this.numberOfInvolvedCars = numberOfInvolvedCars;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 }

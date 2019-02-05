@@ -6,6 +6,7 @@ import lombok.Value;
 
 import java.time.ZonedDateTime;
 
+//tag::class[]
 @Value
 public class ReportDto {
     private ReportId id;
@@ -15,8 +16,9 @@ public class ReportDto {
 
     public static ReportDto fromReport(Report report) {
         return new ReportDto(report.getId(),
-                             report.getReporter().getEmail(),
-                             report.getDateTime(),
-                             report.getDescription());
+                report.getReporter().getEmail(),
+                report.getDateTime(),
+                report.getDescription());
     }
 }
+//end::class[]
