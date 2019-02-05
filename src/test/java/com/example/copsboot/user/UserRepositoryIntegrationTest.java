@@ -35,8 +35,12 @@ public class UserRepositoryIntegrationTest {
         roles.add(UserRole.OFFICER);
         User user = repository.save(new User(repository.nextId(), "burakaykan2@gmail.com", "my-secret-pwd", roles));
         assertThat(user).isNotNull();
+
         assertThat(repository.count()).isEqualTo(1L);
-        entityManager.flush();
+
+        entityManager.flush(); //<3>
+        assertThat(jdbcTemplate.queryForObject("SELECT count(*) FROM copsboot_user", Long.class)).isEqualTo(1L); //<4>
+        assertThat(jdbcTemplate.queryForObject("SELECT count(*) FROM user_roles", Long.class)).isEqualTo(1L);
         assertThat(jdbcTemplate.queryForObject("SELECT roles FROM user_roles", String.class)).isEqualTo("OFFICER");
     }
 }

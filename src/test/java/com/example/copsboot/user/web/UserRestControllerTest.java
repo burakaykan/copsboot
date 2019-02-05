@@ -3,6 +3,7 @@ package com.example.copsboot.user.web;
 import com.example.copsboot.infrastructure.test.CopsbootControllerTest;
 import com.example.copsboot.user.UserService;
 import com.example.copsboot.user.Users;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static com.example.copsboot.infrastructure.security.SecurityHelperForMockMvc.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -107,10 +110,9 @@ public class UserRestControllerTest {
         mvc.perform(post("/api/users")
                             .contentType(MediaType.APPLICATION_JSON_UTF8)
                             .content(objectMapper.writeValueAsString(parameters)))
-           .andExpect(status().isBadRequest()) //<2>
-           .andDo(print()); //<3>
+           .andExpect(status().isBadRequest())
+           .andExpect(jsonPath("errors[0].fieldName").value("password"));
 
-        verify(service, never()).createOfficer(email, password); //<4>
+        verify(service, never()).createOfficer(email, password);
     }
-
 }
