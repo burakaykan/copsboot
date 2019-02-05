@@ -1,9 +1,5 @@
 package com.example.copsboot.user.web;
 
-import com.example.copsboot.infrastructure.SpringProfiles;
-import com.example.copsboot.infrastructure.security.OAuth2ServerConfiguration;
-import com.example.copsboot.infrastructure.security.SecurityConfiguration;
-import com.example.copsboot.infrastructure.security.StubUserDetailsService;
 import com.example.copsboot.infrastructure.test.CopsbootControllerTest;
 import com.example.copsboot.user.UserService;
 import com.example.copsboot.user.Users;
@@ -11,16 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -39,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @CopsbootControllerTest(UserRestController.class)
 public class UserRestControllerTest {
 //end::class-annotations[]
-
     @Autowired
     private MockMvc mvc;
 
@@ -85,7 +72,6 @@ public class UserRestControllerTest {
            .andExpect(jsonPath("roles").value("CAPTAIN"));
     }
 
-    //tag::test-create-officer[]
     @Test
     public void testCreateOfficer() throws Exception {
         String email = "wim.deblauwe@example.com";
@@ -107,25 +93,5 @@ public class UserRestControllerTest {
            .andExpect(jsonPath("roles[0]").value("OFFICER"));
 
         verify(service).createOfficer(email, password);
-    }
-
-    @TestConfiguration
-    @Import(OAuth2ServerConfiguration.class)
-    static class TestConfig {
-        @Bean
-        public UserDetailsService userDetailsService() {
-            return new StubUserDetailsService();
-        }
-
-        @Bean
-        public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
-        }
-
-        @Bean
-        public SecurityConfiguration securityConfiguration() {
-            return new SecurityConfiguration();
-        }
-
     }
 }

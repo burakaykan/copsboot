@@ -1,3 +1,4 @@
+//tag::initial-doc[]
 == User Management
 
 === User information

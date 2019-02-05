@@ -14,17 +14,18 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @Import(OAuth2ServerConfiguration.class)
 public class CopsbootControllerTestConfiguration {
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new StubUserDetailsService();
     }
 
     @Bean
-    public TokenStore tokenStore(){
+    public TokenStore tokenStore() {
         return new InMemoryTokenStore();
     }
 
     @Bean
-    public SecurityConfiguration securityConfiguration(){
+    public SecurityConfiguration securityConfiguration() {
         return new SecurityConfiguration();
     }
+
 }

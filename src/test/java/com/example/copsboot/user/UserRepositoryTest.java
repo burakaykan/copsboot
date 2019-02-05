@@ -1,5 +1,6 @@
 package com.example.copsboot.user;
 
+import com.example.copsboot.infrastructure.SpringProfiles;
 import com.example.orm.jpa.InMemoryUniqueIdGenerator;
 import com.example.orm.jpa.UniqueIdGenerator;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
@@ -19,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ActiveProfiles(SpringProfiles.TEST)
 public class UserRepositoryTest {
 
     @Autowired

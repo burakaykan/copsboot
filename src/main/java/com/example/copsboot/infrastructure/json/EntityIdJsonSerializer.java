@@ -1,4 +1,4 @@
-package com.example.copsboot.infrastructure.json;
+package com.example.copsboot.infrastructure.jackson;
 
 import com.example.orm.jpa.EntityId;
 import com.fasterxml.jackson.core.JsonGenerator;
