@@ -3,8 +3,6 @@ package com.example.copsboot.report;
 import com.example.copsboot.user.UserId;
 import com.example.copsboot.user.UserNotFoundException;
 import com.example.copsboot.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

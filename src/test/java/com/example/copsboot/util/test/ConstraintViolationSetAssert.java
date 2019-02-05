@@ -26,12 +26,13 @@ public class ConstraintViolationSetAssert extends AbstractAssert<ConstraintViola
         return this;
     }
 
-    public ConstraintViolationSetAssert hasVioalationSize(int numberOfViolations) {
+    public ConstraintViolationSetAssert hasViolationSize(int numberOfViolations) {
         isNotNull();
 
         if (actual.size() != numberOfViolations) {
             failWithMessage("Expected %s violations, but got %s", numberOfViolations, actual.size());
         }
+
         return this;
     }
 
@@ -41,6 +42,7 @@ public class ConstraintViolationSetAssert extends AbstractAssert<ConstraintViola
         if (!actual.isEmpty()) {
             failWithMessage("Expecting no violations, but there are %s violations", actual.size());
         }
+
         return this;
     }
 

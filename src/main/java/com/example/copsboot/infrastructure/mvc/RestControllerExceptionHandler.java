@@ -23,7 +23,7 @@ public class RestControllerExceptionHandler {
                 .collect(Collectors.toList()));
     }
 
-    private Map<String, List<FieldErrorResponse>> error (List<FieldErrorResponse> errors) {
+    private Map<String, List<FieldErrorResponse>> error(List<FieldErrorResponse> errors) {
         return Collections.singletonMap("errors", errors);
     }
 }

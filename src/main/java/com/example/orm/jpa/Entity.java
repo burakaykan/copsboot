@@ -1,7 +1,5 @@
 package com.example.orm.jpa;
 
-import java.io.Serializable;
-
 /**
  * Interface for entity objects.
  *

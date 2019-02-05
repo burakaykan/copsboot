@@ -19,7 +19,6 @@ public class Report extends AbstractEntity<ReportId> {
     protected Report() {
     }
 
-
     public Report(ReportId id, User reporter, ZonedDateTime dateTime, String description) {
         super(id);
         this.reporter = reporter;

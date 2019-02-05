@@ -85,6 +85,7 @@ public class UserRestControllerTest {
         parameters.setPassword(password);
 
         when(service.createOfficer(email, password)).thenReturn(Users.newOfficer(email, password));
+        when(service.findUserByEmail(email)).thenReturn(Optional.empty());
 
         mvc.perform(post("/api/users")
                             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -106,6 +107,8 @@ public class UserRestControllerTest {
         CreateOfficerParameters parameters = new CreateOfficerParameters();
         parameters.setEmail(email);
         parameters.setPassword(password);
+
+        when(service.findUserByEmail(email)).thenReturn(Optional.empty());
 
         mvc.perform(post("/api/users")
                             .contentType(MediaType.APPLICATION_JSON_UTF8)

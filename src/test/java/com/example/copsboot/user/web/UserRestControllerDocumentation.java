@@ -101,7 +101,7 @@ public class UserRestControllerDocumentation {
     //tag::create-officer[]
     @Test
     public void createOfficerExample() throws Exception {
-        String email = "wim.deblauwe@example.com";
+        String email = "burak.aykan@example.com";
         String password = "my-super-secret-pwd";
 
         CreateOfficerParameters parameters = new CreateOfficerParameters(); //<1>
@@ -109,6 +109,7 @@ public class UserRestControllerDocumentation {
         parameters.setPassword(password);
 
         when(service.createOfficer(email, password)).thenReturn(Users.newOfficer(email, password)); //<2>
+        when(service.findUserByEmail(email)).thenReturn(Optional.empty());
 
         mvc.perform(post("/api/users") //<3>
                                        .contentType(MediaType.APPLICATION_JSON_UTF8)
